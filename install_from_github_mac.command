@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_URL="${1:-https://github.com/gpoore/text2qti.git}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DETECTED_REPO_URL="$(git -C "$SCRIPT_DIR" remote get-url origin 2>/dev/null || true)"
+DEFAULT_REPO_URL="${DETECTED_REPO_URL:-https://github.com/staffordlumsden/CanvasQuizMaker.git}"
+REPO_URL="${1:-$DEFAULT_REPO_URL}"
 INSTALL_DIR="${2:-$HOME/CanvasQuizBuilder}"
 DESKTOP_DIR="$HOME/Desktop"
 
@@ -22,6 +25,15 @@ fi
 mkdir -p "$(dirname "$INSTALL_DIR")"
 
 if [[ -d "$INSTALL_DIR/.git" ]]; then
+  INSTALLED_REMOTE_URL="$(git -C "$INSTALL_DIR" remote get-url origin 2>/dev/null || true)"
+  if [[ -n "$INSTALLED_REMOTE_URL" && "$INSTALLED_REMOTE_URL" != "$REPO_URL" ]]; then
+    echo "Error: existing install at $INSTALL_DIR points to a different repo:" >&2
+    echo "  $INSTALLED_REMOTE_URL" >&2
+    echo "Expected:" >&2
+    echo "  $REPO_URL" >&2
+    echo "Remove $INSTALL_DIR or provide a different install directory." >&2
+    exit 1
+  fi
   echo "Existing clone found. Pulling latest changes..."
   git -C "$INSTALL_DIR" pull --ff-only
 elif [[ -d "$INSTALL_DIR" ]]; then
