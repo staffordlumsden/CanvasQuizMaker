@@ -1,4 +1,5 @@
-# text2qti – Create quizzes in QTI format from Markdown-based plain text
+# Canvas Quiz Maker
+## Create quizzes in QTI format from plain text with **text2Qti**
 
 text2qti converts
 [Markdown](https://daringfireball.net/projects/markdown/)-based plain text
