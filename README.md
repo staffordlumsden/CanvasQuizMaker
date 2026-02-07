@@ -1,15 +1,7 @@
 # Canvas Quiz Maker
 ## Create quizzes in QTI format from plain text with **text2Qti**
 
-text2qti converts
-[Markdown](https://daringfireball.net/projects/markdown/)-based plain text
-files into quizzes in QTI format (version 1.2), which can be imported by
-[Canvas](https://www.instructure.com/canvas/) and other educational software.
-It supports multiple-choice, true/false, multiple-answers, numerical,
-short-answer (fill-in-the-blank), essay, and file-upload questions.  It
-includes basic support for LaTeX math within Markdown, and allows a limited
-subset of [siunitx](https://ctan.org/pkg/siunitx) notation for units and for
-numbers in scientific notation.
+This tool runs a webUI that will help you create a quiz and convert it into QTi format, ready for uploading to Canvas.
 
 ## Local tools (Text2QTi)
 
@@ -26,7 +18,8 @@ text into Canvas QTI `.zip` files.
 The web UI includes a guided quiz builder for creating Text2QTI content
 directly, plus strict validate and convert actions.
 
-
+Uses text2qti to convert [Markdown](https://daringfireball.net/projects/markdown/)-based plain text files into quizzes in QTI format (version 1.2), which can be imported by [Canvas](https://www.instructure.com/canvas/) and other educational software. It supports multiple-choice, true/false, multiple-answers, numerical, short-answer (fill-in-the-blank), essay, and file-upload questions.  
+Includes basic support for LaTeX math within Markdown, and allows a limited subset of [siunitx](https://ctan.org/pkg/siunitx) notation for units and for numbers in scientific notation.
 
 ## Examples
 
