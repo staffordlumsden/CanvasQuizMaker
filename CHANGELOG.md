@@ -1,5 +1,25 @@
 # Change Log
 
+## Unreleased (local)
+
+* Added `setup_text2qti.sh` to create a venv, install dependencies, and
+  chmod the launchers.
+* Added a visible progress indicator during conversions in the web UI.
+* Replaced file uploads in the web UI with a paste-in text workflow.
+* Web UI now surfaces `text2qti` stderr in the error page for easier
+  debugging.
+* Added `text2qti_validate.py` and `run_text2qti_validate.sh` to validate
+  `.txt` quiz files against Text2QTI syntax before conversion.
+* Web UI now has a `Validate Format` button with line-specific parser errors
+  and targeted fix hints for failed validation.
+* Validation success page now includes a `Convert This Validated Text to QTI`
+  button so users can convert immediately without re-pasting.
+* Added a guided quiz builder in the web UI that generates Text2QTI from
+  structured question inputs and supports one-click validate/convert.
+* Removed AI/Ollama normalization paths from the web app and setup scripts.
+* Added GitHub bootstrap installers for macOS and Windows that clone/pull,
+  install dependencies, and place a Desktop shortcut for launching the app.
+
 
 ## v0.7.1 (2023-10-29)
 

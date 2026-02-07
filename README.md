@@ -10,6 +10,21 @@ includes basic support for LaTeX math within Markdown, and allows a limited
 subset of [siunitx](https://ctan.org/pkg/siunitx) notation for units and for
 numbers in scientific notation.
 
+## Local tools (Text2QTi)
+
+This repository includes local CLI and web helpers for converting pasted quiz
+text into Canvas QTI `.zip` files.
+
+- Web UI: `./run_text2qti_web.sh` then open `http://localhost:8001`
+- CLI: `./run_text2qti_cli.sh`
+- Validator: `./run_text2qti_validate.sh /path/to/quiz.txt`
+- Setup: `./setup_text2qti.sh` (creates `.venv`, installs deps)
+- macOS installer: `./install_from_github_mac.command`
+- Windows installer: `.\install_from_github_windows.ps1`
+
+The web UI includes a guided quiz builder for creating Text2QTI content
+directly, plus strict validate and convert actions.
+
 
 
 ## Examples
@@ -752,3 +767,79 @@ b)  false
 END_GROUP
 ```
 
+
+## Local Web App (This Repo)
+
+This repo includes a local web app that converts quizzes to Canvas QTI `.zip`
+files. It supports `.txt` input in the Text2QTI format and a guided quiz
+builder for creating new quizzes.
+
+### What It Does
+* Accepts `.txt` input in a browser UI.
+* For `.txt`: runs `text2qti` directly after optional validation.
+* Includes a guided quiz builder for composing questions, answers, and
+  feedback directly into valid Text2QTI format.
+* Includes a `Validate Format` action that checks Text2QTI syntax before
+  conversion and reports line-specific errors.
+* Saves the resulting `.zip` to your Desktop.
+
+### Requirements
+* Python with a virtual environment already created in `.venv`.
+* `text2qti` installed in `.venv`.
+
+### Install Dependencies
+If you already installed them, you can skip this.
+```
+.venv/bin/python -m pip install .
+```
+
+### One-Step Installers (GitHub Clone + Desktop Shortcut)
+macOS:
+```
+./install_from_github_mac.command
+```
+Windows PowerShell:
+```powershell
+.\install_from_github_windows.ps1
+```
+Both scripts clone or update the repo, install dependencies, and create a
+Desktop launcher for the web app.
+To install from a different GitHub repo URL, pass it as the first argument.
+Example:
+```bash
+./install_from_github_mac.command https://github.com/<your-org>/<your-repo>.git
+```
+```powershell
+.\install_from_github_windows.ps1 -RepoUrl "https://github.com/<your-org>/<your-repo>.git"
+```
+
+### Run The Web App
+```
+./run_text2qti_web.sh
+```
+Then open:
+```
+http://localhost:8001
+```
+
+### Validate Text2QTI Before Conversion
+Run:
+```
+./run_text2qti_validate.sh /path/to/quiz.txt
+```
+This performs a strict Text2QTI parse and in-memory QTI build, then reports
+`VALID` or `INVALID` with details.
+
+### Files Added
+* `text2qti_web.py` – local web server and conversion pipeline
+* `run_text2qti_web.sh` – launcher for the web server
+* `text2qti_cli.py` – local CLI file picker conversion
+* `run_text2qti_cli.sh` – launcher for the CLI tool
+* `text2qti_validate.py` – strict Text2QTI format validator
+* `run_text2qti_validate.sh` – launcher for the validator
+* `install_from_github_mac.command` – macOS bootstrap installer + Desktop shortcut
+* `install_from_github_windows.ps1` – Windows bootstrap installer + Desktop shortcut
+
+### Notes
+* The web server is local-only (`127.0.0.1`).
+* The UI is plain HTML rendered by the server; no external assets required.
