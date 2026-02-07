@@ -21,6 +21,145 @@ directly, plus strict validate and convert actions.
 Uses text2qti to convert [Markdown](https://daringfireball.net/projects/markdown/)-based plain text files into quizzes in QTI format (version 1.2), which can be imported by [Canvas](https://www.instructure.com/canvas/) and other educational software. It supports multiple-choice, true/false, multiple-answers, numerical, short-answer (fill-in-the-blank), essay, and file-upload questions.  
 Includes basic support for LaTeX math within Markdown, and allows a limited subset of [siunitx](https://ctan.org/pkg/siunitx) notation for units and for numbers in scientific notation.
 
+## Local Web App (This Repo)
+
+This repo includes a local web app that converts quizzes to Canvas QTI `.zip`
+files. It supports `.txt` input in the Text2QTI format and a guided quiz
+builder for creating new quizzes.
+
+### What It Does
+* Accepts `.txt` input in a browser UI.
+* For `.txt`: runs `text2qti` directly after optional validation.
+* Includes a guided quiz builder for composing questions, answers, and
+  feedback directly into valid Text2QTI format.
+* Includes a `Validate Format` action that checks Text2QTI syntax before
+  conversion and reports line-specific errors.
+* Saves the resulting `.zip` to your Desktop.
+
+### Requirements
+* Python with a virtual environment already created in `.venv`.
+* `text2qti` installed in `.venv`.
+
+### Install Dependencies
+If you already installed them, you can skip this.
+```
+.venv/bin/python -m pip install .
+```
+
+### One-Step Installers (GitHub Clone + Desktop Shortcut)
+macOS:
+```
+./install_from_github_mac.command
+```
+Windows PowerShell:
+```powershell
+.\install_from_github_windows.ps1
+```
+Both scripts clone or update the repo, install dependencies, and create a
+Desktop launcher for the web app.
+To install from a different GitHub repo URL, pass it as the first argument.
+Example:
+```bash
+./install_from_github_mac.command https://github.com/<your-org>/<your-repo>.git
+```
+```powershell
+.\install_from_github_windows.ps1 -RepoUrl "https://github.com/<your-org>/<your-repo>.git"
+```
+
+### Run The Web App
+```
+./run_text2qti_web.sh
+```
+Then open:
+```
+http://localhost:8001
+```
+
+### Validate Text2QTI Before Conversion
+Run:
+```
+./run_text2qti_validate.sh /path/to/quiz.txt
+```
+This performs a strict Text2QTI parse and in-memory QTI build, then reports
+`VALID` or `INVALID` with details.
+
+### Files Added
+* `text2qti_web.py` – local web server and conversion pipeline
+* `run_text2qti_web.sh` – launcher for the web server
+* `text2qti_cli.py` – local CLI file picker conversion
+* `run_text2qti_cli.sh` – launcher for the CLI tool
+* `text2qti_validate.py` – strict Text2QTI format validator
+* `run_text2qti_validate.sh` – launcher for the validator
+* `install_from_github_mac.command` – macOS bootstrap installer + Desktop shortcut
+* `install_from_github_windows.ps1` – Windows bootstrap installer + Desktop shortcut
+
+### Notes
+* The web server is local-only (`127.0.0.1`).
+* The UI is plain HTML rendered by the server; no external assets required.
+
+
+## Installation
+
+Install **Python 3.8+** if it is not already available on your machine.  See
+https://www.python.org/, or use the package manager or app store for your
+operating system.  Depending on your use case, you may want to consider a
+Python distribution like [Anaconda](https://www.anaconda.com/distribution/)
+instead.
+
+Install
+[setuptools](https://packaging.python.org/tutorials/installing-packages/)
+for Python if it is not already installed.  This can be accomplished by
+running
+```
+python -m pip install setuptools
+```
+on the command line.  Depending on your system, you may need to use `python3`
+instead of `python`.  This will often be the case for Linux and OS X.
+
+Install text2qti by running this on the command line:
+```
+python -m pip install text2qti
+```
+Depending on your system, you may need to use `python3` instead of `python`.
+This will often be the case for Linux and OS X.
+
+
+### Upgrading
+
+```
+python -m pip install text2qti --upgrade
+```
+Depending on your system, you may need to use `python3` instead of `python`.
+This will often be the case for Linux and OS X.
+
+
+### Installing the development version
+
+If you want to install the development version to use the latest features,
+download `text2qti` from [GitHub](https://github.com/gpoore/text2qti) and
+extract the files.  A few different ways to install the development version
+are listed below.  Depending on your system, you may need to use `python3`
+instead of `python` in the commands below.  This will often be the case for
+Linux and OS X.
+
+* You can install using the included `setup.py` by running
+  ```
+  python setup.py install
+  ```
+  Depending on your system configuration, especially if you do not have root
+  or administrator privileges, you may want to
+  [customize the installation location](https://docs.python.org/3.8/install/#alternate-installation-the-user-scheme).
+  For example, you can add `--user` to install under `%APPDATA%\Python` (Windows), `~/.local` (UNIX, and Mac OS X non-framework builds), or
+  `~/Library/Python/<VERSION>` (Mac framework builds):
+  ```
+  python setup.py install --user
+  ```
+* You can install using `pip`.  For example, in the directory with `setup.py`,
+  run this:
+  ```
+  python -m pip install .
+  ```
+
 ## Examples
 
 text2qti allows quick and efficient quiz creation.  Example
@@ -174,72 +313,6 @@ that makes up each element of a question.
 b)  Another answer.
 |   |
 ```
-
-
-## Installation
-
-Install **Python 3.8+** if it is not already available on your machine.  See
-https://www.python.org/, or use the package manager or app store for your
-operating system.  Depending on your use case, you may want to consider a
-Python distribution like [Anaconda](https://www.anaconda.com/distribution/)
-instead.
-
-Install
-[setuptools](https://packaging.python.org/tutorials/installing-packages/)
-for Python if it is not already installed.  This can be accomplished by
-running
-```
-python -m pip install setuptools
-```
-on the command line.  Depending on your system, you may need to use `python3`
-instead of `python`.  This will often be the case for Linux and OS X.
-
-Install text2qti by running this on the command line:
-```
-python -m pip install text2qti
-```
-Depending on your system, you may need to use `python3` instead of `python`.
-This will often be the case for Linux and OS X.
-
-
-### Upgrading
-
-```
-python -m pip install text2qti --upgrade
-```
-Depending on your system, you may need to use `python3` instead of `python`.
-This will often be the case for Linux and OS X.
-
-
-### Installing the development version
-
-If you want to install the development version to use the latest features,
-download `text2qti` from [GitHub](https://github.com/gpoore/text2qti) and
-extract the files.  A few different ways to install the development version
-are listed below.  Depending on your system, you may need to use `python3`
-instead of `python` in the commands below.  This will often be the case for
-Linux and OS X.
-
-* You can install using the included `setup.py` by running
-  ```
-  python setup.py install
-  ```
-  Depending on your system configuration, especially if you do not have root
-  or administrator privileges, you may want to
-  [customize the installation location](https://docs.python.org/3.8/install/#alternate-installation-the-user-scheme).
-  For example, you can add `--user` to install under `%APPDATA%\Python` (Windows), `~/.local` (UNIX, and Mac OS X non-framework builds), or
-  `~/Library/Python/<VERSION>` (Mac framework builds):
-  ```
-  python setup.py install --user
-  ```
-* You can install using `pip`.  For example, in the directory with `setup.py`,
-  run this:
-  ```
-  python -m pip install .
-  ```
-
-
-
 
 ## Usage
 
@@ -452,8 +525,6 @@ description.
   `one question at a time` mode.
 
 
-
-
 ## Details for writing quiz text
 
 text2qti processes almost all text as
@@ -624,8 +695,6 @@ separate from Python-Markdown.  In rare cases, this may conflict with raw HTML
 embedded in Markdown.  This feature may be reimplemented as a Python-Markdown
 extension in the future.
 
-
-
 ## Export solutions to PDF and HTML
 
 There is basic support for exporting quiz solutions in Pandoc Markdown, PDF,
@@ -648,7 +717,6 @@ When using `--only-solutions`, be aware that solutions and QTI may differ if
 executable code blocks generate problems using random numbers. Consider
 creating solutions and QTI at the same time (`--solutions`), or setting a seed
 for the random number generator so it is reproducible.
-
 
 ### Customizing questions for solutions
 
@@ -762,78 +830,3 @@ END_GROUP
 ```
 
 
-## Local Web App (This Repo)
-
-This repo includes a local web app that converts quizzes to Canvas QTI `.zip`
-files. It supports `.txt` input in the Text2QTI format and a guided quiz
-builder for creating new quizzes.
-
-### What It Does
-* Accepts `.txt` input in a browser UI.
-* For `.txt`: runs `text2qti` directly after optional validation.
-* Includes a guided quiz builder for composing questions, answers, and
-  feedback directly into valid Text2QTI format.
-* Includes a `Validate Format` action that checks Text2QTI syntax before
-  conversion and reports line-specific errors.
-* Saves the resulting `.zip` to your Desktop.
-
-### Requirements
-* Python with a virtual environment already created in `.venv`.
-* `text2qti` installed in `.venv`.
-
-### Install Dependencies
-If you already installed them, you can skip this.
-```
-.venv/bin/python -m pip install .
-```
-
-### One-Step Installers (GitHub Clone + Desktop Shortcut)
-macOS:
-```
-./install_from_github_mac.command
-```
-Windows PowerShell:
-```powershell
-.\install_from_github_windows.ps1
-```
-Both scripts clone or update the repo, install dependencies, and create a
-Desktop launcher for the web app.
-To install from a different GitHub repo URL, pass it as the first argument.
-Example:
-```bash
-./install_from_github_mac.command https://github.com/<your-org>/<your-repo>.git
-```
-```powershell
-.\install_from_github_windows.ps1 -RepoUrl "https://github.com/<your-org>/<your-repo>.git"
-```
-
-### Run The Web App
-```
-./run_text2qti_web.sh
-```
-Then open:
-```
-http://localhost:8001
-```
-
-### Validate Text2QTI Before Conversion
-Run:
-```
-./run_text2qti_validate.sh /path/to/quiz.txt
-```
-This performs a strict Text2QTI parse and in-memory QTI build, then reports
-`VALID` or `INVALID` with details.
-
-### Files Added
-* `text2qti_web.py` – local web server and conversion pipeline
-* `run_text2qti_web.sh` – launcher for the web server
-* `text2qti_cli.py` – local CLI file picker conversion
-* `run_text2qti_cli.sh` – launcher for the CLI tool
-* `text2qti_validate.py` – strict Text2QTI format validator
-* `run_text2qti_validate.sh` – launcher for the validator
-* `install_from_github_mac.command` – macOS bootstrap installer + Desktop shortcut
-* `install_from_github_windows.ps1` – Windows bootstrap installer + Desktop shortcut
-
-### Notes
-* The web server is local-only (`127.0.0.1`).
-* The UI is plain HTML rendered by the server; no external assets required.
