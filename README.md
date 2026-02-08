@@ -1,5 +1,4 @@
 # Canvas Quiz Maker
-<<<<<<< HEAD
 ## Create quizzes in QTI format from plain text with `text2qti` from [gpoore](https://github.com/gpoore/text2qti) 
 
 This tool runs a webUI that will help you create a quiz and convert it into QTi format, ready for uploading to Canvas.
