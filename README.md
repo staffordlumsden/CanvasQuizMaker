@@ -52,7 +52,6 @@ Then open `http://localhost:8001`
 ## Create quizzes in QTI format from plain text with **text2Qti**
 
 This tool runs a webUI that will help you create a quiz and convert it into QTi format, ready for uploading to Canvas.
->>>>>>> 66051c4 (Simplify README quick start and add cross-platform installers)
 
 ## Local tools (Text2QTi)
 
